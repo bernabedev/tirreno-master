@@ -16,6 +16,7 @@ services:
       - DB_PASSWORD=secret
     volumes:
       - .:/var/www/html  # Mount your code to ease development (optional)
+      - ./config:/config
 
   db:
     image: postgres:17
