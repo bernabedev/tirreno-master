@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  tirreno:
+    build: .
+    ports:
+      - "8080:80"   # Access the app at http://localhost:8080
+    depends_on:
+      - db
+    environment:
+      # Adjust these environment variables as needed by your app configuration
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=tirreno
+      - DB_USER=tirreno_user
+      - DB_PASSWORD=secret
+    volumes:
+      - .:/var/www/html  # Mount your code to ease development (optional)
+
+  db:
+    image: postgres:17
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: tirreno
+      POSTGRES_USER: tirreno_user
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
