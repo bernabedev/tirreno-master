@@ -31,6 +31,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - tirreno-network
+      
+networks:
+  tirreno-network:
+    driver: bridge
 
 volumes:
   postgres_data:
