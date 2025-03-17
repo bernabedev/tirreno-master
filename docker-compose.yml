@@ -17,6 +17,8 @@ services:
     volumes:
       - .:/var/www/html  # Mount your code to ease development (optional)
       - ./config:/config
+    networks:
+      - tirreno-network
 
   db:
     image: postgres:17
@@ -29,6 +31,8 @@ services:
       POSTGRES_PASSWORD: secret
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tirreno-network
 
 volumes:
   postgres_data:
