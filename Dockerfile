@@ -12,6 +12,9 @@ RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && \
 # Enable Apache modules required by Tirreno
 RUN a2enmod rewrite headers
 
+# Create and set permissions for the configuration folder
+RUN mkdir -p /config && chown -R www-data:www-data /config
+
 # Copy Tirreno source code into the container
 COPY . /var/www/html/
 
