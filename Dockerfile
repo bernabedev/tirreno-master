@@ -5,7 +5,6 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     curl \
     postgresql-client \
-    geoipupdate \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure and install the PostgreSQL extensions
@@ -21,9 +20,8 @@ RUN mkdir -p /config /var/www/html/tmp /usr/share/GeoIP && \
     chmod -R 0777 /var/www/html/tmp && \
     chmod -R 0755 /usr/share/GeoIP
 
-# Set up GeoIP update configuration
-COPY GeoIP.conf /etc/GeoIP.conf
-RUN geoipupdate
+# Configure volume for GeoIP database
+VOLUME ["/usr/share/GeoIP"]
 
 # Copy Tirreno source code into the container
 COPY . /var/www/html/

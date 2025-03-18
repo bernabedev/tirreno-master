@@ -5,3 +5,4 @@ vendor/*
 .DS_Store
 composer.phar
 /.php-cs-fixer.cache
+GeoIP.conf
