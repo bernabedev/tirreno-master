@@ -12,6 +12,7 @@ services:
       - DB_NAME=tirreno
       - DB_USER=tirreno_user
       - DB_PASSWORD=secret
+      - DATABASE_URL=postgres://tirreno_user:secret@db:5432/tirreno
     volumes:
       - .:/var/www/html  # Mount your code to ease development (optional)
       - ./config:/config
