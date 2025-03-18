@@ -1,7 +1,12 @@
 FROM php:8.3.19-apache
 
-# Update package lists and install PostgreSQL development libraries and curl
-RUN apt-get update && apt-get install -y libpq-dev curl postgresql-client
+# Update package lists and install required dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    curl \
+    postgresql-client \
+    geoipupdate \
+    && rm -rf /var/lib/apt/lists/*
 
 # Configure and install the PostgreSQL extensions
 RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && \
@@ -11,9 +16,14 @@ RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && \
 RUN a2enmod rewrite headers
 
 # Create necessary directories with proper permissions
-RUN mkdir -p /config /var/www/html/tmp && \
+RUN mkdir -p /config /var/www/html/tmp /usr/share/GeoIP && \
     chmod -R 0777 /config && \
-    chmod -R 0777 /var/www/html/tmp
+    chmod -R 0777 /var/www/html/tmp && \
+    chmod -R 0755 /usr/share/GeoIP
+
+# Set up GeoIP update configuration
+COPY GeoIP.conf /etc/GeoIP.conf
+RUN geoipupdate
 
 # Copy Tirreno source code into the container
 COPY . /var/www/html/
