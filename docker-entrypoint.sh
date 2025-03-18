@@ -25,5 +25,9 @@ until pg_isready -h db -U tirreno_user -d tirreno; do
 done
 echo "PostgreSQL is up - executing command"
 
+# Start cron service
+service cron start
+echo "Cron service started"
+
 # Execute CMD
 exec "$@"
