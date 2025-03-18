@@ -16,7 +16,7 @@ RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql && \
 RUN a2enmod rewrite headers
 
 # Create necessary directories with proper permissions
-RUN mkdir -p /config /var/www/html/tmp /usr/share/GeoIP && \
+RUN mkdir -p /config /var/www/html/logs /var/www/html/tmp /usr/share/GeoIP && \
     chmod -R 0777 /config && \
     chmod -R 0777 /var/www/html/tmp && \
     chmod -R 0777 /var/www/html/logs && \
